@@ -1,7 +1,7 @@
 
 function TestingImports() {
   return (
-    <div>Hola Jorgito</div>
+    <div>Hola</div>
   )
 }
 
