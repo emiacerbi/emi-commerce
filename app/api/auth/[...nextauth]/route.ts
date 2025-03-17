@@ -1,5 +1,5 @@
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import NextAuth from "next-auth";
+import NextAuth, { Session, User } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 
 import { prisma } from "@/prisma";
@@ -13,6 +13,22 @@ export const authOptions = {
     }),
   ],
   secret: process.env.NEXTAUTH_SECRET,
+  callbacks: {
+    async signIn({ user }: { user: User }) {
+      console.log(user)
+      const allowedEmail = await prisma.storeOwner.findUnique({
+        where: { email: user.email! },
+      });
+
+      if (!allowedEmail) {
+        return false; 
+      }
+      return true;
+    },
+    async session({ session }: { session: Session }) {
+      return session;
+    },
+  }
 };
 
 const handler = NextAuth(authOptions);

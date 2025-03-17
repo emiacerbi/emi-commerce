@@ -81,3 +81,9 @@ model Authenticator {
  
   @@id([userId, credentialID])
 }
+
+model StoreOwner {
+  id    String  @id @default(cuid())
+  email String  @unique
+  storeName String
+}
