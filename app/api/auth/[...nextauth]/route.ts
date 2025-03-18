@@ -1,5 +1,5 @@
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import NextAuth, { Session, User } from "next-auth";
+import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 
 import { prisma } from "@/prisma";
@@ -15,22 +15,21 @@ export const authOptions = {
   secret: process.env.NEXTAUTH_SECRET,
 
   // Right now only store owner can create account (hardcoded to be my email)
-  callbacks: {
-    async signIn({ user }: { user: User }) {
-      console.log(user)
-      const allowedEmail = await prisma.storeOwner.findUnique({
-        where: { email: user.email! },
-      });
+  // callbacks: {
+  //   async signIn({ user }: { user: User }) {
+  //     const allowedEmail = await prisma.storeOwner.findUnique({
+  //       where: { email: user.email! },
+  //     });
 
-      if (!allowedEmail) {
-        return false; 
-      }
-      return true;
-    },
-    async session({ session }: { session: Session }) {
-      return session;
-    },
-  }
+  //     if (!allowedEmail) {
+  //       return false; 
+  //     }
+  //     return true;
+  //   },
+  //   async session({ session }: { session: Session }) {
+  //     return session;
+  //   },
+  // }
 };
 
 const handler = NextAuth(authOptions);
