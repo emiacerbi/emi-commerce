@@ -6,7 +6,7 @@ export default function AuthButton() {
   const { data: session } = useSession();
 
   return (
-    <div>
+    <div className="flex gap-4 ml-auto">
       {session ? (
         <>
           <p>Welcome, {session.user?.name}</p>
