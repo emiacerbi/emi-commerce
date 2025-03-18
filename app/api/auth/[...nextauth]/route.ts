@@ -13,6 +13,8 @@ export const authOptions = {
     }),
   ],
   secret: process.env.NEXTAUTH_SECRET,
+
+  // Right now only store owner can create account (hardcoded to be my email)
   callbacks: {
     async signIn({ user }: { user: User }) {
       console.log(user)
