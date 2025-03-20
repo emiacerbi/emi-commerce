@@ -1,23 +1,24 @@
+import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
 
-import AuthButton from "@/components/AuthButton";
-
-import { authOptions } from "../api/auth/[...nextauth]/route";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { prisma } from "@/prisma";
 
 export default async function Dashboard() {
   const session = await getServerSession(authOptions);
 
-  if (!session) {
-    return (
-      <div>
-        <p>You must be logged in to view this page.</p>
-        <AuthButton />
-      </div>
-    ) 
+  if (!session || !session.user?.email) {
+    redirect("/");
   }
 
-  return (
-    <div>
-    </div>
-  ) 
+  const store = await prisma.store.findFirst({
+    where: { owner: { email: session.user.email } },
+  });
+
+  if (!store) {
+    redirect("/");
+  }
+
+  return <div>Welcome to your dashboard!</div>;
 }
+

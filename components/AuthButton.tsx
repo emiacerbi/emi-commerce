@@ -1,9 +1,9 @@
-"use client";
+"use client"
 
-import { signIn, signOut, useSession } from "next-auth/react";
+import { Session } from "next-auth";
+import { signIn, signOut } from "next-auth/react";
 
-export default function AuthButton() {
-  const { data: session } = useSession();
+export default function AuthButton({ session } : {session: Session | null}) {
 
   return (
     <div className="flex gap-4 ml-auto">
