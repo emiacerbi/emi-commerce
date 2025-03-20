@@ -25,7 +25,8 @@ model User {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  Store     Store?
+  
+  store   Store?  @relation("StoreOwner")
 }
 
 model Account {
@@ -83,17 +84,11 @@ model Authenticator {
   @@id([userId, credentialID])
 }
 
-model StoreOwner {
-  id        String @id @default(cuid())
-  email     String @unique
-  storeName String
-}
-
 model Store {
-  id       String    @id @default(cuid())
-  name     String
-  ownerId  String    @unique
-  owner    User      @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  id      String  @id @default(cuid())
+  name    String
+  owner   User    @relation("StoreOwner", fields: [ownerId], references: [id], onDelete: Cascade) 
+  ownerId String  @unique
   products Product[]
 }
 
