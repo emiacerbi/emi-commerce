@@ -22,12 +22,17 @@ export default async function Navbar() {
       <p>
         emi-commerce@gmail.com
       </p>
-      <AuthButton session={session} />
-      {!!store && (
-        <Link href='/dashboard'>
-          Admin panel
+      <div className="mx-auto gap-4 flex">
+        <Link href='/'>
+          Home
         </Link>
-      )}
+        {!!store && (
+          <Link href='/dashboard'>
+            Admin panel
+          </Link>
+        )}
+      </div>
+      <AuthButton session={session} />
     </nav>
   )
 }	
