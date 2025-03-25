@@ -19,6 +19,12 @@ export default async function Dashboard() {
     redirect("/");
   }
 
-  return <div>Welcome to your dashboard!</div>;
+  return (
+    <div>
+      Welcome to your dashboard!
+
+      Here you can create your products
+    </div>
+  ) 
 }
 
