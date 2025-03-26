@@ -15,8 +15,6 @@ const Product: React.FC<Props> = ({ id, name, description, stock, image }) => {
   const [editingField, setEditingField] = useState<string | null>(null);
   const [inputValue, setInputValue] = useState<string | number>("");
 
-  console.log(typeof inputValue)
-
   const handleEditClick = (field: string, currentValue: string | number) => {
     setEditingField(field);
     setInputValue(currentValue);
@@ -31,7 +29,6 @@ const Product: React.FC<Props> = ({ id, name, description, stock, image }) => {
     if (!editingField) return;
 
     const formatedData = editingField === "stock" ? Number(inputValue) : inputValue   
-
     try {
       const res = await fetch(`/api/products/${id}`, {
         method: "PUT",

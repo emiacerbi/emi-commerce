@@ -24,8 +24,6 @@ export default async function Dashboard() {
 
   const products = store.products
 
-  console.log(products)
-
   return (
     <div>
       <h1>Welcome to your dashboard!</h1>

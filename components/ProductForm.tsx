@@ -62,7 +62,6 @@ export default function ProductForm({ storeId }: Props) {
           onChange={handleChange}
           required
         />
-
         <textarea
           name="description"
           placeholder="Product Description"
@@ -70,7 +69,6 @@ export default function ProductForm({ storeId }: Props) {
           onChange={handleChange}
           required
         />
-
         <input
           type="number"
           name="price"
@@ -79,7 +77,6 @@ export default function ProductForm({ storeId }: Props) {
           onChange={handleChange}
           required
         />
-
         <input
           type="text"
           name="image"
@@ -88,7 +85,6 @@ export default function ProductForm({ storeId }: Props) {
           onChange={handleChange}
           required
         />
-
         <button type="submit" disabled={loading}>
           {loading ? "Creating..." : "Create Product"}
         </button>
