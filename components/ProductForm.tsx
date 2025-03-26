@@ -53,7 +53,7 @@ export default function ProductForm({ storeId }: Props) {
       <h1>Create a Product</h1>
       {error && <p className="text-red-500">{error}</p>}
 
-      <form onSubmit={handleSubmit} className="space-y-4 flex flex-col border border-white">
+      <form onSubmit={handleSubmit} className="space-y-4 p-4 flex flex-col border border-white">
         <input
           type="text"
           name="name"

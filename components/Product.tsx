@@ -9,9 +9,10 @@ type Props = {
   description: string;
   stock: number;
   image: string;
+  isStoreOwner?: boolean
 };
 
-const Product: React.FC<Props> = ({ id, name, description, stock, image }) => {
+const Product: React.FC<Props> = ({ id, name, description, stock, image, isStoreOwner = false }) => {
   const [editingField, setEditingField] = useState<string | null>(null);
   const [inputValue, setInputValue] = useState<string | number>("");
 
@@ -47,8 +48,28 @@ const Product: React.FC<Props> = ({ id, name, description, stock, image }) => {
     }
   };
 
+  const handleDelete = async () => {
+    try {
+      const res = await fetch(`/api/products/${id}`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+      });
+
+      window.location.reload();
+
+      if (!res.ok) {
+        throw new Error("Failed to delete product");
+      }
+    } catch (err) {
+      console.error ("Error deleting product", err)
+    }
+  }
+
   return (
-    <article key={id} className="border p-4 rounded-lg shadow-md">
+    <article key={id} className="border flex flex-col gap-2 max-w-xs items-center p-4 rounded-lg shadow-md">
+
+      {/* Product Image */}
+      <Image src={image} alt={name} width={250} height={300} className="rounded-md" />
       {/* Name */}
       <div className="flex items-center gap-2">
         {editingField === "name" ? (
@@ -65,7 +86,7 @@ const Product: React.FC<Props> = ({ id, name, description, stock, image }) => {
         ) : (
           <>
             <p>{name}</p>
-            <button onClick={() => handleEditClick("name", name)} className="text-blue-500">Edit</button>
+            { isStoreOwner && <button onClick={() => handleEditClick("name", name)} className="text-blue-500">Edit</button> }
           </>
         )}
       </div>
@@ -86,7 +107,8 @@ const Product: React.FC<Props> = ({ id, name, description, stock, image }) => {
         ) : (
           <>
             <p>{description}</p>
-            <button onClick={() => handleEditClick("description", description)} className="text-blue-500">Edit</button>
+            { isStoreOwner && <button onClick={() => handleEditClick("description", description)} className="text-blue-500">Edit</button> }
+            
           </>
         )}
       </div>
@@ -107,13 +129,15 @@ const Product: React.FC<Props> = ({ id, name, description, stock, image }) => {
         ) : (
           <>
             <p>Stock: {stock}</p>
-            <button onClick={() => handleEditClick("stock", stock)} className="text-blue-500">Edit</button>
+            { isStoreOwner && <button onClick={() => handleEditClick("stock", stock)} className="text-blue-500">Edit</button> }
           </>
         )}
       </div>
 
-      {/* Product Image */}
-      <Image src={image} alt={name} width={200} height={100} className="rounded-md mt-2" />
+      {/* Delete */}
+      <div>
+        { isStoreOwner && <button onClick={handleDelete} className="text-blue-500">Delete</button> }
+      </div>
     </article>
   );
 };

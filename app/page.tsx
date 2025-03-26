@@ -5,7 +5,7 @@ export default async function Home() {
   const products = await prisma.product.findMany();
 
   return (
-    <div className="">  
+    <div className="grid grid-cols-3 mt-4">  
       {products.map(product => (
         <Product 
           key={product.id}

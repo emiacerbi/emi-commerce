@@ -15,14 +15,18 @@ export default async function Dashboard() {
 
   const store = await prisma.store.findFirst({
     where: { owner: { email: session.user.email } },
-    include: { products: true }
+    include: { products: true, owner: true }
   });
+
+  const isStoreOwner = session?.user.email === store?.owner.email
 
   if (!store) {
     redirect("/");
   }
 
   const products = store.products
+
+  console.log(store)
 
   return (
     <div>
@@ -31,16 +35,19 @@ export default async function Dashboard() {
 
       <ProductForm storeId={store.id} />
 
-      {products.map(product => (
-        <Product 
-          key={product.id}
-          id={product.id}
-          name={product.name} 
-          description={product.description} 
-          stock={product.stock} 
-          image={product.image}
-        />
-      ))}
+      <div className="grid grid-cols-3 mt-4">
+        {products.map(product => (
+          <Product 
+            key={product.id}
+            id={product.id}
+            name={product.name} 
+            description={product.description} 
+            stock={product.stock} 
+            image={product.image}
+            isStoreOwner={isStoreOwner}
+          />
+        ))}
+      </div>
     </div>
   );
 }
