@@ -23,12 +23,17 @@ export default async function Dashboard() {
   const favorites = await prisma.favorite.findMany({
     where: { User: { email: session.user.email } },
   });
-
+  
   if (!store) {
     redirect("/");
   }
 
   const products = store.products
+
+  const safeProducts = products.map(product => ({
+    ...product,
+    price: product.price.toNumber(),
+  }));
 
   return (
     <div>
@@ -38,7 +43,7 @@ export default async function Dashboard() {
       <ProductForm storeId={store.id} />
 
       <div className="grid grid-cols-3 mt-4">
-        {products.map(product => (
+        {safeProducts.map(product => (
           <Product 
             key={product.id}
             id={product.id}
@@ -46,6 +51,7 @@ export default async function Dashboard() {
             description={product.description} 
             stock={product.stock} 
             image={product.image}
+            price={product.price}
             isStoreOwner={isStoreOwner}
             favorites={favorites}
           />

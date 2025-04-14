@@ -103,7 +103,7 @@ const Product: React.FC<Props> = ({ id, name, description, stock, image, price, 
               type="text"
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
-              className="border p-1"
+              className="border p-1 w-36"
             />
             <button onClick={handleUpdate} className="bg-green-500 px-2 py-1 text-white">Save</button>
             <button onClick={handleCancel} className="bg-red-500 px-2 py-1 text-white">Cancel</button>
@@ -124,7 +124,7 @@ const Product: React.FC<Props> = ({ id, name, description, stock, image, price, 
               type="text"
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
-              className="border p-1"
+              className="border p-1 w-36"
             />
             <button onClick={handleUpdate} className="bg-green-500 px-2 py-1 text-white">Save</button>
             <button onClick={handleCancel} className="bg-red-500 px-2 py-1 text-white">Cancel</button>
@@ -146,7 +146,7 @@ const Product: React.FC<Props> = ({ id, name, description, stock, image, price, 
               type="number"
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
-              className="border p-1"
+              className="border p-1 w-36"
             />
             <button onClick={handleUpdate} className="bg-green-500 px-2 py-1 text-white">Save</button>
             <button onClick={handleCancel} className="bg-red-500 px-2 py-1 text-white">Cancel</button>
@@ -167,7 +167,7 @@ const Product: React.FC<Props> = ({ id, name, description, stock, image, price, 
               type="number"
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
-              className="border p-1"
+              className="border p-1 w-36"
             />
             <button onClick={handleUpdate} className="bg-green-500 px-2 py-1 text-white">Save</button>
             <button onClick={handleCancel} className="bg-red-500 px-2 py-1 text-white">Cancel</button>

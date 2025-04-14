@@ -25,7 +25,6 @@ export async function POST(req: NextRequest) {
     where: { userId_productId: { userId: user.id, productId: productId } },
   });
   
-
   if (duplicate) {
     const removeDuplicate = await prisma.favorite.delete({
       where: { userId_productId: { userId: user.id, productId: productId } } }
