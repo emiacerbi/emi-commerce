@@ -31,6 +31,11 @@ export default async function Navbar() {
             Admin panel
           </Link>
         )}
+        {!!session && (
+          <Link href='/favorites'>
+            Favorites
+          </Link>
+        )}
       </div>
       <AuthButton session={session} />
     </nav>

@@ -20,13 +20,15 @@ export default async function Dashboard() {
 
   const isStoreOwner = session?.user.email === store?.owner.email
 
+  const favorites = await prisma.favorite.findMany({
+    where: { User: { email: session.user.email } },
+  });
+
   if (!store) {
     redirect("/");
   }
 
   const products = store.products
-
-  console.log(store)
 
   return (
     <div>
@@ -45,6 +47,7 @@ export default async function Dashboard() {
             stock={product.stock} 
             image={product.image}
             isStoreOwner={isStoreOwner}
+            favorites={favorites}
           />
         ))}
       </div>
