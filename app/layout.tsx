@@ -4,6 +4,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 
 import Navbar from "@/components/Navbar";
 import SessionWrapper from "@/components/SessionWrapper";
+import { CartProvider } from "@/context/CartContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,8 +33,10 @@ export default function RootLayout({
       >
         <SessionWrapper>
           <div className="container mx-auto min-h-screen max-w-[1180px]" >
-            <Navbar />
-            {children}
+            <CartProvider>
+              <Navbar />
+              {children}
+            </CartProvider>
           </div>
         </SessionWrapper>
       </body>

@@ -5,6 +5,8 @@ import Image from "next/image";
 import { signIn } from "next-auth/react";
 import { useState } from "react";
 
+import { useCart } from "@/context/CartContext";
+
 type Props = {
   id: string;
   name: string;
@@ -19,6 +21,8 @@ type Props = {
 const Product: React.FC<Props> = ({ id, name, description, stock, image, price, isStoreOwner = false, favorites }) => {
   const [editingField, setEditingField] = useState<string | null>(null);
   const [inputValue, setInputValue] = useState<string | number>("");
+
+  const { addToCart } = useCart()
 
   const isFavorited = favorites?.some((favorite) => favorite.productId === id);
 
@@ -181,13 +185,17 @@ const Product: React.FC<Props> = ({ id, name, description, stock, image, price, 
       </div>
 
       <button className="bg-blue-500 px-2 py-1 text-white cursor-pointer" onClick={() => handleFavorite()}>
-        {isFavorited ? "Remove from favorites" : "Add to favorites"}
+        {isFavorited ? "</3" : "<3"}
+      </button>
+      <button onClick={() => addToCart({ id, name, description, stock, image, price })} className="bg-blue-500 px-2 py-1 text-white cursor-pointer">
+        +
       </button>
 
       {/* Delete */}
       <div>
         { isStoreOwner && <button onClick={handleDelete} className="text-blue-500">Delete</button> }
       </div>
+
     </article>
   );
 };

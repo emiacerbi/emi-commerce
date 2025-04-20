@@ -15,7 +15,7 @@ export default async function Navbar() {
   });
 
   return (
-    <nav className="flex gap-4 py-2 border-b border-b-gray-500">
+    <nav className="flex gap-4 py-2 border-b border-b-gray-400 text-sm">
       <p>
         11 1111-1111
       </p>
@@ -36,6 +36,9 @@ export default async function Navbar() {
             Favorites
           </Link>
         )}
+        <Link href='/cart'>
+          Cart
+        </Link>
       </div>
       <AuthButton session={session} />
     </nav>
