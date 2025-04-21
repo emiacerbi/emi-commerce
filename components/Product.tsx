@@ -110,46 +110,44 @@ const Product: React.FC<Props> = ({ id, name, description, stock, image, price, 
   }
 
   return (
-    <article key={id} className="flex flex-col gap-2 group relative w-[283px] text-sm ">
+    <article key={id} className="flex flex-col gap-2 group relative w-[283px] text-sm cursor-pointer">
       {/* Product Image */}
-      <div className="w-full aspect-square relative overflow-hidden">
+      <div className="w-full min-h-[283px] aspect-square relative overflow-hidden">
         <Image src={image} alt={name} fill  className="object-cover duration-500 group-hover:scale-105" />
       </div>
 
-      <div className="flex justify-between">
-        {/* Name */}
-        <div className="flex items-center gap-2">
-          {editing ? (
-            <input
-              name="name"
-              value={formData.name}
-              onChange={handleInputChange}
-              className="border p-1 w-36"
-            />
-          ) : (
-            <p className="font-bold">{name}</p>
-          )}
+      {/* Name */}
+      <div className="flex items-center gap-2">
+        {editing ? (
+          <input
+            name="name"
+            value={formData.name}
+            onChange={handleInputChange}
+            className="border p-1 w-36"
+          />
+        ) : (
+          <p className="group-hover:underline underline-offset-2">{name}</p>
+        )}
 
-        </div>
+      </div>
 
-        {/* Price */}
-        <div className="flex items-center gap-2">
-          {editing ? (
-            <input
-              name="price"
-              value={formData.price}
-              onChange={handleInputChange}
-              className="border p-1 w-36"
-            />
-          ) : (
-            <p className="text-gray-500">${price}</p>
-          )}
+      {/* Price */}
+      <div className="flex items-center gap-2">
+        {editing ? (
+          <input
+            name="price"
+            value={formData.price}
+            onChange={handleInputChange}
+            className="border p-1 w-36"
+          />
+        ) : (
+          <p className="text-gray-500">${price}</p>
+        )}
 
-        </div>
       </div>
 
       {/* Description */}
-      {editing ? (
+      {/* {editing ? (
         <input
           name="description"
           value={formData.description}
@@ -157,8 +155,8 @@ const Product: React.FC<Props> = ({ id, name, description, stock, image, price, 
           className="border p-1 w-36"
         />
       ) : (
-        <p className="">{description}</p>
-      )}
+        <p className="h-[110px] text-ellipsis">{description}</p>
+      )} */}
 
       {/* Stock */}
       {/* {editing ? (
@@ -180,7 +178,7 @@ const Product: React.FC<Props> = ({ id, name, description, stock, image, price, 
         <Heart isFavorited={isFavorited}/>
       </button>
 
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between mt-auto ">
         {isStoreOwner && (
           <div className="flex gap-2">
             {editing ? (
@@ -207,7 +205,6 @@ const Product: React.FC<Props> = ({ id, name, description, stock, image, price, 
         </button> }
       </div>
 
-
       <button 
         onClick={() => {
           setWasAdded(true)
@@ -216,7 +213,7 @@ const Product: React.FC<Props> = ({ id, name, description, stock, image, price, 
           }, 2000);
           addToCart({ id, name, description, stock, image, price })}
         }
-        className=" bg-gray-200 text-xs px-4 py-2 rounded-md font-semibold hover:bg-gray-300 transition duration-200">
+        className="bg-gray-200 text-xs px-4 py-2 rounded-md font-semibold hover:bg-gray-300 transition duration-200">
         {wasAdded ? "Added to cart" : "Add to cart"}
       </button>
     </article>

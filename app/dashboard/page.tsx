@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
 
+import Grid from "@/components/Grid";
 import Product from "@/components/Product";
 import ProductForm from "@/components/ProductForm";
 import { authOptions } from "@/lib/auth";
@@ -38,9 +39,10 @@ export default async function Dashboard() {
   return (
     <div className="py-2">
       <h1>Welcome to your dashboard!</h1>
+      <ProductForm storeId={store.id} />
 
-      <div className="grid grid-cols-4 mt-4 gap-4">
-        <ProductForm storeId={store.id} />
+      <h3>Tus productos</h3>
+      <Grid>
         {safeProducts.map(product => (
           <Product 
             key={product.id}
@@ -54,7 +56,7 @@ export default async function Dashboard() {
             favorites={favorites}
           />
         ))}
-      </div>
+      </Grid>
     </div>
   );
 }

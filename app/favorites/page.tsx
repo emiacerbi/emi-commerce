@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
 
+import Grid from "@/components/Grid";
 import Product from "@/components/Product";
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/prisma";
@@ -27,26 +28,28 @@ export default async function Favorites() {
   }));
 
   return (
-    <div className="pt-2">
+    <div className="">
       {safeFavorites.length === 0 && (
         <p className="text-center ">Todavia no tienes productos en favoritos</p>
       )}
 
-      {safeFavorites.map(favorite => {
-        const product = favorite.Product;
-        return (
-          <Product
-            key={product.id}
-            id={product.id}
-            name={product.name}
-            description={product.description}
-            stock={product.stock}
-            image={product.image}
-            favorites={safeFavorites} 
-            price={product.price}
-          />
-        );
-      })}
+      <Grid>
+        {safeFavorites.map(favorite => {
+          const product = favorite.Product;
+          return (
+            <Product
+              key={product.id}
+              id={product.id}
+              name={product.name}
+              description={product.description}
+              stock={product.stock}
+              image={product.image}
+              favorites={safeFavorites} 
+              price={product.price}
+            />
+          );
+        })}
+      </Grid>
     </div>
   );
 }
