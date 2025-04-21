@@ -54,10 +54,11 @@ export async function DELETE(
   if (!store) {
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
-
+  
   const product = await prisma.product.findUnique({
     where: { id, storeId: store.id },
   });
+  
   if (!product) {
     return NextResponse.json(
       { error: "Product not found or does not belong to your store" },
