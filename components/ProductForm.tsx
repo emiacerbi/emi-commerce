@@ -50,42 +50,67 @@ export default function ProductForm({ storeId }: Props) {
 
   return (
     <div>
-      <h1>Create a Product</h1>
       {error && <p className="text-red-500">{error}</p>}
 
-      <form onSubmit={handleSubmit} className="space-y-4 p-4 flex flex-col border border-white">
-        <input
-          type="text"
-          name="name"
-          placeholder="Product Name"
-          value={formData.name}
-          onChange={handleChange}
-          required
-        />
-        <textarea
-          name="description"
-          placeholder="Product Description"
-          value={formData.description}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="number"
-          name="price"
-          placeholder="Price"
-          value={formData.price}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="text"
-          name="image"
-          placeholder="Image URL"
-          value={formData.image}
-          onChange={handleChange}
-          required
-        />
-        <button type="submit" disabled={loading}>
+      <form onSubmit={handleSubmit} className="flex flex-col border border-white max-w-[283px] h-full ">
+        <h1>Create a Product</h1>
+
+        <label htmlFor="Name">
+          <span className="text-sm font-semibold text-gray-700"> Nombre </span>
+          <input
+            type="text"
+            id="Name"
+            name="name"
+            onChange={handleChange}
+            className="mt-0.5 w-full rounded border border-gray-300 shadow-sm sm:text-sm outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 py-2 px-3"
+            value={formData.name}
+            required
+          />
+        </label>
+
+
+        <label htmlFor="Descripción">
+          <span className="text-sm font-semibold text-gray-700"> Descripción </span>
+          <textarea
+            id="Descripción"
+            name="description"
+            onChange={handleChange}
+            className="mt-0.5 w-full rounded border border-gray-300 shadow-sm sm:text-sm outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 py-2 px-3"
+            value={formData.description}
+            required
+          />
+        </label>
+
+        <label htmlFor="Price">
+          <span className="text-sm font-semibold text-gray-700"> Precio </span>
+          <input
+            type="number"
+            id="Price"
+            name="price"
+            onChange={handleChange}
+            value={formData.price}
+            required
+            className="mt-0.5 w-full rounded border border-gray-300 shadow-sm sm:text-sm outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 py-2 px-3"
+          />
+        </label>
+
+        <label htmlFor="Imagen">
+          <span className="text-sm font-semibold text-gray-700"> Imagen </span>
+          <input
+            type="text"
+            id="Imagen"
+            name="image"
+            onChange={handleChange}
+            value={formData.image}
+            required
+            className="mt-0.5 w-full rounded border border-gray-300 shadow-sm sm:text-sm outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 py-2 px-3"
+          />
+        </label>
+
+        <button 
+          className="mt-auto bg-gray-200 py-2 px-4 text-xs font-semibold rounded hover:bg-gray-300 transition duration-200" 
+          type="submit" 
+          disabled={loading}>
           {loading ? "Creating..." : "Create Product"}
         </button>
       </form>
