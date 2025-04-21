@@ -1,9 +1,9 @@
 import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
 
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import Product from "@/components/Product";
 import ProductForm from "@/components/ProductForm";
+import { authOptions } from "@/lib/auth";
 import { prisma } from "@/prisma";
 
 export default async function Dashboard() {
@@ -36,13 +36,11 @@ export default async function Dashboard() {
   }));
 
   return (
-    <div>
+    <div className="py-2">
       <h1>Welcome to your dashboard!</h1>
-      <p>Here you can create your products.</p>
 
-      <ProductForm storeId={store.id} />
-
-      <div className="grid grid-cols-3 mt-4">
+      <div className="grid grid-cols-4 mt-4 gap-4">
+        <ProductForm storeId={store.id} />
         {safeProducts.map(product => (
           <Product 
             key={product.id}

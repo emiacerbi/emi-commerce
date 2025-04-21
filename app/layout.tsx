@@ -32,12 +32,12 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <SessionWrapper>
-          <div className="container mx-auto min-h-screen max-w-[1180px]" >
-            <CartProvider>
-              <Navbar />
+          <CartProvider>
+            <Navbar />
+            <div className="container mx-auto min-h-screen max-w-[1180px]" >
               {children}
-            </CartProvider>
-          </div>
+            </div>
+          </CartProvider>
         </SessionWrapper>
       </body>
     </html>

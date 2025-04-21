@@ -1,9 +1,8 @@
 import { getServerSession } from "next-auth";
 
 import Product from "@/components/Product";
+import { authOptions } from "@/lib/auth";
 import { prisma } from "@/prisma";
-
-import { authOptions } from "./api/auth/[...nextauth]/route";
 
 export default async function Home() {
   const session = await getServerSession(authOptions);
@@ -19,7 +18,7 @@ export default async function Home() {
   });
 
   return (
-    <div className="grid grid-cols-3 mt-4">  
+    <div className="grid grid-cols-4 mt-4">  
       {safeProducts.map(product => {
         return (
           <Product

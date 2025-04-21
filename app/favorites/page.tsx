@@ -2,9 +2,8 @@ import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
 
 import Product from "@/components/Product";
+import { authOptions } from "@/lib/auth";
 import { prisma } from "@/prisma";
-
-import { authOptions } from "../api/auth/[...nextauth]/route";
 
 export default async function Favorites() {
 
@@ -28,9 +27,10 @@ export default async function Favorites() {
   }));
 
   return (
-    <div>
-      <h1>Favorites</h1>
-      <p>Loading your favorite items...</p>
+    <div className="pt-2">
+      {safeFavorites.length === 0 && (
+        <p className="text-center ">Todavia no tienes productos en favoritos</p>
+      )}
 
       {safeFavorites.map(favorite => {
         const product = favorite.Product;
