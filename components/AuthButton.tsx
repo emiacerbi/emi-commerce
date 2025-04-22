@@ -10,10 +10,10 @@ export default function AuthButton({ session } : {session: Session | null}) {
       {session ? (
         <>
           <p>Welcome, {session.user?.name}</p>
-          <button onClick={() => signOut()}>Sign out</button>
+          <button className="cursor-pointer hover:text-gray-500" onClick={() => signOut()}>Sign out</button>
         </>
       ) : (
-        <button onClick={() => signIn("google")}>Sign in with Google</button>
+        <button className="cursor-pointer hover:text-gray-500" onClick={() => signIn("google")}>Sign in with Google</button>
       )}
     </div>
   );

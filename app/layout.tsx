@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Geist, Geist_Mono } from "next/font/google";
 
+import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import SessionWrapper from "@/components/SessionWrapper";
 import { CartProvider } from "@/context/CartContext";
@@ -29,14 +30,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
       >
         <SessionWrapper>
           <CartProvider>
             <Navbar />
-            <div className="container mx-auto min-h-screen max-w-[1180px]" >
+            <div className="container mx-auto h-full max-w-[1180px]" >
               {children}
             </div>
+            <Footer />
           </CartProvider>
         </SessionWrapper>
       </body>

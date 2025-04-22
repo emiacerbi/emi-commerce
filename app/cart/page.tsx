@@ -11,7 +11,7 @@ export default function CartPage() {
 
   return (
     <section>
-      <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
+      <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-3xl">
           <header className="text-center">
             <h1 className="text-xl font-bold text-gray-900 sm:text-3xl">Tu carrito</h1>
@@ -33,6 +33,7 @@ export default function CartPage() {
                   </div>
                   <div>
                     <h3 className="text-gray-900">{item.name}</h3>
+                    <p className="text-sm text-gray-600">${item.price * item.quantity}</p>
                     <p className="text-sm text-gray-600">Quedan {item.stock} disponibles</p>
                   </div>
 

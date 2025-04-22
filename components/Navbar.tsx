@@ -5,6 +5,7 @@ import { authOptions } from "@/lib/auth";
 import { prisma } from "@/prisma";
 
 import AuthButton from "./AuthButton";
+import Logo from "./Icons/Logo";
 
 export default async function Navbar() {
 
@@ -15,29 +16,24 @@ export default async function Navbar() {
   });
 
   return (
-    <div className="border-b border-gray-300">
-      <nav className="flex gap-4 py-2 text-sm max-w-[1180px] mx-auto">
-        <p>
-          11 1111-1111
-        </p>
-        <p>
-          emi-commerce@gmail.com
-        </p>
+    <div className="border-b sticky z-50 bg-white top-0 border-gray-300">
+      <nav className="flex gap-4 py-2 text-sm h-16 items-center max-w-[1180px] mx-auto">
+        <Logo />  
         <div className="mx-auto gap-4 flex">
-          <Link href='/'>
+          <Link href='/' className="hover:text-gray-500">
             Home
           </Link>
           {!!store && (
-            <Link href='/dashboard'>
+            <Link href='/dashboard' className="hover:text-gray-500">
               Admin panel
             </Link>
           )}
           {!!session && (
-            <Link href='/favorites'>
+            <Link href='/favorites' className="hover:text-gray-500">
               Favorites
             </Link>
           )}
-          <Link href='/cart'>
+          <Link href='/cart' className="hover:text-gray-500">
             Cart
           </Link>
         </div>

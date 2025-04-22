@@ -37,11 +37,13 @@ export default async function Dashboard() {
   }));
 
   return (
-    <div className="py-2">
-      <h1>Welcome to your dashboard!</h1>
+    <div className="py-8">
+      <header className="text-center">
+        <h1 className="text-xl font-bold text-gray-900 sm:text-3xl">Dashboard</h1>
+      </header>
       <ProductForm storeId={store.id} />
 
-      <h3>Tus productos</h3>
+      <h3 className="mt-4">Productos creados</h3>
       <Grid>
         {safeProducts.map(product => (
           <Product 

@@ -19,21 +19,26 @@ export default async function Home() {
   });
 
   return (
-    <Grid>
-      {safeProducts.map(product => {
-        return (
-          <Product
-            key={product.id}
-            id={product.id}
-            name={product.name}
-            description={product.description}
-            stock={product.stock}
-            image={product.image}
-            favorites={favorites}
-            price={product.price} 
-          />
-        );
-      })}
-    </Grid>
+    <div className="py-8">
+      {safeProducts.length === 0 && (
+        <p className="text-center font-semibold">No hay productos disponibles</p>
+      )}
+      <Grid className="mt-4">  
+        {safeProducts.map(product => {
+          return (
+            <Product
+              key={product.id}
+              id={product.id}
+              name={product.name}
+              description={product.description}
+              stock={product.stock}
+              image={product.image}
+              favorites={favorites}
+              price={product.price} 
+            />
+          );
+        })}
+      </Grid>
+    </div>
   );
 }

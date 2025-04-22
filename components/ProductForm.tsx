@@ -52,9 +52,7 @@ export default function ProductForm({ storeId }: Props) {
     <div>
       {error && <p className="text-red-500">{error}</p>}
 
-      <form onSubmit={handleSubmit} className="flex flex-col border border-white max-w-[283px] h-full ">
-        <h1>Create a Product</h1>
-
+      <form onSubmit={handleSubmit} className="grid grid-cols-2 border border-white mt-4 h-full gap-4">
         <label htmlFor="Name">
           <span className="text-sm font-semibold text-gray-700"> Nombre </span>
           <input
@@ -68,10 +66,10 @@ export default function ProductForm({ storeId }: Props) {
           />
         </label>
 
-
         <label htmlFor="Descripción">
           <span className="text-sm font-semibold text-gray-700"> Descripción </span>
-          <textarea
+          <input
+            type="text"
             id="Descripción"
             name="description"
             onChange={handleChange}
@@ -108,10 +106,10 @@ export default function ProductForm({ storeId }: Props) {
         </label>
 
         <button 
-          className="mt-auto bg-gray-200 py-2 px-4 text-xs font-semibold rounded hover:bg-gray-300 transition duration-200" 
+          className="bg-gray-200 py-3 text-xs font-semibold rounded hover:bg-gray-300 transition duration-200" 
           type="submit" 
           disabled={loading}>
-          {loading ? "Creating..." : "Create Product"}
+          {loading ? "Creating..." : "Crear "}
         </button>
       </form>
     </div>

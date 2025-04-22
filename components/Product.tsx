@@ -159,16 +159,19 @@ const Product: React.FC<Props> = ({ id, name, description, stock, image, price, 
       )} */}
 
       {/* Stock */}
-      {/* {editing ? (
-        <input
-          name="name"
-          value={formData.stock}
-          onChange={handleInputChange}
-          className="border p-1 w-36"
-        />
-      ) : (
-        <p className="">{stock}</p>
-      )} */}
+
+      {isStoreOwner && (
+        editing ? (
+          <input
+            name="stock"
+            value={formData.stock}
+            onChange={handleInputChange}
+            className="border p-1 w-36"
+          />
+        ) : (
+          <p className="">Stock: {stock}</p>
+        )
+      )}
 
       <button
         className="absolute end-4 top-4 z-10 rounded-full cursor-pointer bg-white p-1.5 text-gray-900 transition hover:text-gray-900/75"
