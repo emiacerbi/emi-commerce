@@ -5,6 +5,7 @@ import { authOptions } from "@/lib/auth";
 import { prisma } from "@/prisma";
 
 import AuthButton from "./AuthButton";
+import { Categories } from "./Categories";
 import Logo from "./Icons/Logo";
 
 export default async function Navbar() {
@@ -38,7 +39,13 @@ export default async function Navbar() {
           </Link>
         </div>
         <AuthButton session={session} />
+
+
       </nav>
+
+      <div className="flex gap-4 py-2 text-sm h-16 items-center max-w-[1180px] mx-auto">
+        <Categories storeId={store?.id} />
+      </div>
     </div>
   )
 }	

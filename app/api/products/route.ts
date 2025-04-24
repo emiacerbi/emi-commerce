@@ -10,7 +10,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const { name, description, price, image, storeId } = await req.json();
+  const { name, description, price, image, categoryId, storeId } = await req.json();
 
   const store = await prisma.store.findUnique({ 
     where: { id: storeId }, 
@@ -22,7 +22,7 @@ export async function POST(req: NextRequest) {
   }
 
   const product = await prisma.product.create({
-    data: { name, description, price, image, storeId },
+    data: { name, description, price, image, categoryId, storeId },
   });
 
   return NextResponse.json(product, { status: 201 });

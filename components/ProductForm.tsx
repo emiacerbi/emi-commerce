@@ -3,21 +3,26 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
+type Category = { id: string; name: string }
+
 type Props = {
   storeId: string;
+  categories: Category[];
 };
 
-export default function ProductForm({ storeId }: Props) {
+export default function ProductForm({ storeId, categories }: Props) {
   const router = useRouter();
   const [formData, setFormData] = useState({
     name: "",
     description: "",
     price: "",
     image: "",
+    categoryId: "",
   });
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [category, setCategory] = useState("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -47,6 +52,28 @@ export default function ProductForm({ storeId }: Props) {
       setLoading(false);
     }
   };
+
+  const createCategory = async (e: React.SyntheticEvent) => {
+    e.preventDefault(); 
+
+    try {
+      const res = await fetch("/api/categories", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: category.toLowerCase(), storeId }),
+      });
+
+      if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData?.message || "Failed to create category");
+      }
+
+      alert("Categoría creada con éxito!");
+    } catch (err) {
+      alert("Hubo un problema creando la categoría");
+      setError(`Error: ${err instanceof Error ? err.message : "Unknown error"}`);
+    }
+  }
 
   return (
     <div>
@@ -103,6 +130,42 @@ export default function ProductForm({ storeId }: Props) {
             required
             className="mt-0.5 w-full rounded border border-gray-300 shadow-sm sm:text-sm outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 py-2 px-3"
           />
+        </label>
+
+        <div className="flex items-end gap-4">
+          <label htmlFor="category" className="w-full text-sm font-medium text-gray-700">
+            <span className="text-sm font-semibold text-gray-700"> Crear categoría </span>
+            <input
+              type="text"
+              name="category"
+              id="category"
+              placeholder="Remeras"
+              onChange={(e) => setCategory(e.target.value)}
+              value={category}
+              className="mt-0.5 block w-full rounded border border-gray-300 shadow-sm sm:text-sm outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 py-2 px-3"
+            />
+          </label>
+          <button
+            type="button"
+            className="rounded-md ml-auto bg-black px-4 h-[38px] text-white text-sm font-medium hover:bg-gray-800"
+            onClick={createCategory}
+          >
+            Create
+          </button>
+        </div>
+
+        <label>
+          <span>Category</span>
+          <select
+            name="categoryId"
+            value={formData.categoryId}
+            onChange={(e) => setFormData({ ...formData, categoryId: e.target.value })}
+          >
+            <option value="">— uncategorized —</option>
+            {categories.map((c) => (
+              <option key={c.id} value={c.id}>{c.name}</option>
+            ))}
+          </select>
         </label>
 
         <button 
