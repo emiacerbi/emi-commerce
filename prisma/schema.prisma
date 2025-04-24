@@ -91,6 +91,7 @@ model Store {
   owner    User      @relation("StoreOwner", fields: [ownerId], references: [id], onDelete: Cascade)
   ownerId  String    @unique
   products Product[]
+  categories Category[]
 }
 
 model Product {
@@ -102,8 +103,13 @@ model Product {
   stock       Int        @default(0)
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
+  
   storeId     String
   store       Store      @relation(fields: [storeId], references: [id], onDelete: Cascade)
+
+  category    Category? @relation(fields: [categoryId], references: [id])
+  categoryId  String?
+
   favorite    Favorite[]
 }
 
@@ -114,5 +120,15 @@ model Favorite {
   Product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
   productId String
 
-  @@unique([userId, productId]) // Prevents duplicate favorites
+  @@unique([userId, productId]) 
+}
+
+model Category {
+  id       String    @id @default(cuid())
+  name     String
+  store    Store     @relation(fields: [storeId], references: [id], onDelete: Cascade)
+  storeId  String
+  products Product[]  
+
+  @@unique([storeId, name])
 }
