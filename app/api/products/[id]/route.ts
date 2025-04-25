@@ -15,7 +15,7 @@ export async function PUT(
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const { name, description, price, image, stock } = await req.json();
+  const { name, description, price, image, stock, categoryId } = await req.json();
 
   const store = await prisma.store.findFirst({
     where: { owner: { email: session.user.email } },
@@ -32,7 +32,7 @@ export async function PUT(
 
   const updatedProduct = await prisma.product.update({
     where: { id },
-    data: { name, description, price, image, stock: stock ?? 0 },
+    data: { name, description, price, image, stock: stock ?? 0, categoryId },
   });
 
   return NextResponse.json(updatedProduct);

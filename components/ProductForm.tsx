@@ -132,6 +132,21 @@ export default function ProductForm({ storeId, categories }: Props) {
           />
         </label>
 
+        <label>
+          <span className="text-sm font-semibold text-gray-700">Categoria</span>
+          <select
+            name="categoryId"
+            value={formData.categoryId}
+            onChange={(e) => setFormData({ ...formData, categoryId: e.target.value })}
+            className="mt-0.5 block w-full rounded border border-gray-300 shadow-sm sm:text-sm outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 py-2 px-3"
+          >
+            <option value="">Sin asignar</option>
+            {categories.map((c) => (
+              <option key={c.id} value={c.id}>{c.name[0].toUpperCase() + c.name.slice(1)}</option>
+            ))}
+          </select>
+        </label>
+
         <div className="flex items-end gap-4">
           <label htmlFor="category" className="w-full text-sm font-medium text-gray-700">
             <span className="text-sm font-semibold text-gray-700"> Crear categoría </span>
@@ -153,20 +168,6 @@ export default function ProductForm({ storeId, categories }: Props) {
             Create
           </button>
         </div>
-
-        <label>
-          <span>Category</span>
-          <select
-            name="categoryId"
-            value={formData.categoryId}
-            onChange={(e) => setFormData({ ...formData, categoryId: e.target.value })}
-          >
-            <option value="">— uncategorized —</option>
-            {categories.map((c) => (
-              <option key={c.id} value={c.id}>{c.name}</option>
-            ))}
-          </select>
-        </label>
 
         <button 
           className="bg-gray-200 py-3 text-xs font-semibold rounded hover:bg-gray-300 transition duration-200" 

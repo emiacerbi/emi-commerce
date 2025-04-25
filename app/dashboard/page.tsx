@@ -63,6 +63,8 @@ export default async function Dashboard() {
             price={product.price}
             isStoreOwner={isStoreOwner}
             favorites={favorites}
+            category={product.category?.name}
+            categories={categories}
           />
         ))}
       </Grid>

@@ -1,6 +1,6 @@
 "use client";
 
-import { Favorite } from "@prisma/client";
+import { Category, Favorite } from "@prisma/client";
 import Image from "next/image";
 import { signIn } from "next-auth/react";
 import { useState } from "react";
@@ -18,11 +18,13 @@ type Props = {
   stock: number;
   image: string;
   price: number;
+  category?: string;
   isStoreOwner?: boolean
   favorites?: Favorite[]
+  categories?: Category[]
 };
 
-const Product: React.FC<Props> = ({ id, name, description, stock, image, price, isStoreOwner = false, favorites }) => {
+const Product: React.FC<Props> = ({ id, name, description, stock, image, price, category, isStoreOwner = false, favorites, categories }) => {
   const [wasAdded, setWasAdded] = useState(false);
   
   const { addToCart } = useCart()
@@ -34,7 +36,8 @@ const Product: React.FC<Props> = ({ id, name, description, stock, image, price, 
     name,
     description,
     price,
-    stock
+    stock,
+    categoryId: categories?.find(c => c.id === category)?.id || "",
   });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -47,12 +50,14 @@ const Product: React.FC<Props> = ({ id, name, description, stock, image, price, 
 
   const handleUpdate = async () => {
     const updatedFields: Partial<typeof formData> = {};
-  
+    const currentCategoryId = categories?.find(c => c.name === category)?.id || "";
+
     if (formData.name !== name) updatedFields.name = formData.name;
     if (formData.description !== description) updatedFields.description = formData.description;
     if (formData.price !== price) updatedFields.price = formData.price;
     if (formData.stock !== stock) updatedFields.stock = formData.stock;
-  
+    if (formData.categoryId !== currentCategoryId) updatedFields.categoryId = formData.categoryId;
+
     if (Object.keys(updatedFields).length === 0) {
       setEditing(false);
       return; 
@@ -146,20 +151,6 @@ const Product: React.FC<Props> = ({ id, name, description, stock, image, price, 
 
       </div>
 
-      {/* Description */}
-      {/* {editing ? (
-        <input
-          name="description"
-          value={formData.description}
-          onChange={handleInputChange}
-          className="border p-1 w-36"
-        />
-      ) : (
-        <p className="h-[110px] text-ellipsis">{description}</p>
-      )} */}
-
-      {/* Stock */}
-
       {isStoreOwner && (
         editing ? (
           <input
@@ -170,6 +161,27 @@ const Product: React.FC<Props> = ({ id, name, description, stock, image, price, 
           />
         ) : (
           <p className="">Stock: {stock}</p>
+        )
+      )}
+
+      {isStoreOwner && (
+        editing ? (
+          <label className="flex flex-col gap-1 text-sm">
+            <span className="font-medium text-gray-700">Categoria</span>
+            <select
+              name="categoryId"
+              value={formData.categoryId}
+              onChange={(e) => setFormData({ ...formData, categoryId: e.target.value })}
+              className="border p-1 w-36"
+            >
+              <option value="">Sin asignar</option>
+              {categories?.map((c) => (
+                <option key={c.id} value={c.id}>{c.name}</option>
+              ))}
+            </select>
+          </label>
+        ) : (
+          <p className="">Categoria: {category || "No asignada"}</p>
         )
       )}
 
@@ -188,7 +200,13 @@ const Product: React.FC<Props> = ({ id, name, description, stock, image, price, 
               <>
                 <button onClick={handleUpdate} className="bg-green-500 px-2 py-1 text-white">Save</button>
                 <button onClick={() => {
-                  setFormData({ name, description, price, stock });
+                  setFormData({
+                    name,
+                    description,
+                    price,
+                    stock,
+                    categoryId: categories?.find(c => c.name === category)?.id || "",
+                  });
                   setEditing(false);
                 }} className="bg-red-500 px-2 py-1 text-white">Cancel</button>
               </>
