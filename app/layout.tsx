@@ -7,6 +7,8 @@ import Navbar from "@/components/Navbar";
 import SessionWrapper from "@/components/SessionWrapper";
 import { CartProvider } from "@/context/CartContext";
 
+import { Providers } from "./providers/QueryClientProvider";
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -34,11 +36,13 @@ export default function RootLayout({
       >
         <SessionWrapper>
           <CartProvider>
-            <Navbar />
-            <div className="container mx-auto h-full max-w-[1180px]" >
-              {children}
-            </div>
-            <Footer />
+            <Providers>
+              <Navbar />
+              <div className="container mx-auto h-full max-w-[1180px]" >
+                {children}
+              </div>
+              <Footer />
+            </Providers>
           </CartProvider>
         </SessionWrapper>
       </body>
