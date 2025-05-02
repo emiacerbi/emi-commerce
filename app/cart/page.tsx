@@ -1,6 +1,7 @@
 "use client"
 import Image from "next/image";
 
+import MercadoPagoButton from "@/components/MercadoPagoBtn";
 import { useCart } from "@/context/CartContext";
 
 export default function CartPage() {
@@ -130,6 +131,8 @@ export default function CartPage() {
                     >
                       Finalizar compra
                     </a>
+
+                    <MercadoPagoButton items={cart} />
                   </div>
                 </div>
               </div>
