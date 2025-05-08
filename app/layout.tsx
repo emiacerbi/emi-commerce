@@ -38,7 +38,7 @@ export default function RootLayout({
           <CartProvider>
             <Providers>
               <Navbar />
-              <div className="container mx-auto h-full max-w-[1180px]" >
+              <div className="container" >
                 {children}
               </div>
               <Footer />

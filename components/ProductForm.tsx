@@ -138,7 +138,7 @@ export default function ProductForm({ storeId, categories }: Props) {
             name="categoryId"
             value={formData.categoryId}
             onChange={(e) => setFormData({ ...formData, categoryId: e.target.value })}
-            className="mt-0.5 block w-full rounded border border-gray-300 shadow-sm sm:text-sm outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 py-2 px-3"
+            className="mt-0.5 block w-full rounded border h-[38px] border-gray-300 shadow-sm sm:text-sm outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 py-2 px-3"
           >
             <option value="">Sin asignar</option>
             {categories.map((c) => (

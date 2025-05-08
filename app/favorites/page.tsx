@@ -29,14 +29,15 @@ export default async function Favorites() {
 
   return (
     <div className="py-8">
-      {safeFavorites.length === 0 && (
-        <p className="text-center font-semibold">Todavia no tienes productos en favoritos</p>
-      )}
 
       <header className="text-center">
         <h1 className="text-xl font-bold text-gray-900 sm:text-3xl">Favoritos</h1>
       </header>
 
+      {safeFavorites.length === 0 && (
+        <p className="text-center font-semibold">Todavia no tienes productos en favoritos</p>
+      )}
+      
       <Grid>
         {safeFavorites.map(favorite => {
           const product = favorite.Product;

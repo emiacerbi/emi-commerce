@@ -6,10 +6,15 @@ export async function Categories({ storeId }: { storeId: string | undefined }) {
   const categories = await prisma.category.findMany({
     where: { storeId },
     orderBy: { name: "asc" },
+    include: { products: true }
   });
 
+  if (categories.length === 0) {
+    return null
+  } 
+
   return (
-    <div>
+    <div className="container flex gap-4 py-2 text-sm h-16 items-center">
       <ul className="flex gap-4">
         {categories.map((category) => (
           <li className="text-gray-700" key={category.id}>

@@ -15,17 +15,22 @@ export default async function Page({
 
   console.log("Filtered Products:", filteredProducts)
 
-  return <Grid>
-    {filteredProducts.map((product) => (
-      <Product
-        key={product.id}
-        id={product.id}
-        name={product.name}
-        description={product.description}
-        price={product.price.toNumber()}
-        image={product.image}
-        stock={product.stock}
-      />
-    ))}
-  </Grid>
+  return (
+    <div className="py-8">
+      {filteredProducts.length === 0 && (
+        <p className="text-center font-semibold">
+          Aún no hay productos en esta categoria
+        </p>
+      )}
+      <Grid>
+        {filteredProducts.map((product) => (
+          <Product
+            key={product.id}
+            {...product}
+            price={product.price.toNumber()}
+          />
+        ))}
+      </Grid>
+    </div>
+  )
 }
