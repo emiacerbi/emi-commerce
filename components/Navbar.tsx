@@ -5,7 +5,6 @@ import { authOptions } from "@/lib/auth";
 import { prisma } from "@/prisma";
 
 import AuthButton from "./AuthButton";
-import { Categories } from "./Categories";
 import Logo from "./Icons/Logo";
 
 export default async function Navbar() {
@@ -40,8 +39,6 @@ export default async function Navbar() {
         </div>
         <AuthButton session={session} />
       </nav>
-
-      <Categories storeId={store?.id} />
     </div>
   )
 }	

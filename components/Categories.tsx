@@ -14,14 +14,17 @@ export async function Categories({ storeId }: { storeId: string | undefined }) {
   } 
 
   return (
-    <div className="container flex gap-4 py-2 text-sm h-16 items-center">
+    <div className="container flex gap-4 justify-center items-center">
       <ul className="flex gap-4">
         {categories.map((category) => (
-          <li className="text-gray-700" key={category.id}>
-            <Link href={`/categories/${category.name}`} >
+          <Link 
+            key={category.id} 
+            href={`/categories/${category.name}`} 
+          >
+            <li className="text-gray-700 bg-blue-300 py-2 px-3 rounded-md" >
               {category.name[0].toUpperCase() + category.name.slice(1)}
-            </Link>
-          </li>
+            </li>
+          </Link>
         ))}
       </ul>
     </div>

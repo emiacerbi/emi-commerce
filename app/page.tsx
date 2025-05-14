@@ -2,6 +2,8 @@ import { HydrationBoundary, dehydrate } from "@tanstack/react-query"
 import { QueryClient } from "@tanstack/react-query"
 import { getServerSession } from "next-auth"
 
+import MainCarousel from "@/components/Carousel"
+import { Categories } from "@/components/Categories"
 import ClientProducts from "@/components/ClientProducts"
 import { PRODUCTS_PER_PAGE } from "@/constants"
 import { authOptions } from "@/lib/auth"
@@ -12,6 +14,10 @@ export default async function Home() {
 
   const favorites = await prisma.favorite.findMany({
     where: { User: { email: session?.user?.email || "" } },
+  })
+
+  const store = await prisma.store.findFirst({
+    where: { owner: { email: session?.user?.email || "" } },
   })
 
   const queryClient = new QueryClient()
@@ -34,7 +40,13 @@ export default async function Home() {
   const dehydratedState = dehydrate(queryClient)
 
   return (
-    <div className="py-8">
+    <div className="py-8 flex flex-col gap-8">
+      <MainCarousel />
+
+      <Categories
+        storeId={store?.id}
+      />
+
       <HydrationBoundary state={dehydratedState}>
         <ClientProducts favorites={favorites} />
       </HydrationBoundary>

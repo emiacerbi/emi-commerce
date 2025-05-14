@@ -3,6 +3,7 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --product-size: 255px;
 }
 
 @theme {
@@ -12,10 +13,19 @@
   --font-mono: var(--font-geist-mono);
 }
 
+.w-product {
+  width: var(--product-size);
+}
+
+.h-product {
+  height: var(--product-size);
+}
+
 @layer utilities {
   .container {
-    @apply mx-auto px-4;
-    max-width: 960px;
+    @apply mx-auto;
+    max-width: 1056px;
+    width: 100%;
   }
 }
 

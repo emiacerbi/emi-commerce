@@ -40,7 +40,7 @@ export default function ClientProducts({ favorites }: ClientProductsProps) {
   })
 
   return (
-    <div className="flex flex-col gap-4 mt-8">
+    <div className="flex flex-col gap-4">
       {/* Products */}
       {isFetched && (
         <Grid>
